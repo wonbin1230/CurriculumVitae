@@ -1,0 +1,279 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;900;&display=swap");
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "poppins", sans-serif;
+}
+body {
+	overflow: hidden;
+}
+.container {
+	width: 100%;
+	min-height: 100vh;
+	background-color: #f3f5f8;
+}
+nav {
+	display: flex;
+	width: 100%;
+	height: 80px;
+	justify-content: space-around;
+	line-height: 80px;
+	z-index: 111;
+}
+.logo {
+	display: flex;
+	font-size: 40px;
+	font-weight: 800;
+	color: #3d535f;
+	letter-spacing: 3px;
+	cursor: pointer;
+	text-transform: uppercase;
+}
+b {
+	font-size: 70px;
+	color: #7f00ff;
+}
+.navItems {
+	display: flex;
+}
+.navItems > li {
+	list-style: none;
+	margin: 0 15px;
+}
+.navItems > li > a {
+	font-size: 25px;
+	color: #3d535f;
+	letter-spacing: 3px;
+	text-decoration: none;
+	text-transform: capitalize;
+}
+.navItems > li:hover > a,
+.links > a:hover {
+	color: #7f00ff;
+}
+.links > a {
+	font-size: 30px;
+	color: #3d535f;
+	margin: 25px 10px;
+}
+#showDetail > li,
+#showDetail > li > a {
+	line-height: 0;
+	visibility: hidden;
+	opacity: 0;
+	letter-spacing: 3px;
+	text-decoration: none;
+	transform: rotate(720deg);
+	transition: all 0.5s linear;
+}
+#showDetail:hover > li,
+#showDetail:hover > li > a {
+	visibility: visible;
+	opacity: 1;
+	font-size: 25px;
+	color: #e93838;
+	text-decoration: none;
+	transform: rotate(0deg);
+}
+.wrapper {
+	display: flex;
+	width: 100%;
+	height: calc(100vh - 80px);
+	justify-content: center;
+	align-items: center;
+	padding: 0 10%;
+	overflow: hidden;
+}
+.wrapper::before,
+.side-project-container::before {
+	position: absolute;
+	content: "";
+	height: 600px;
+	width: 600px;
+	border-radius: 50%;
+	left: -12%;
+	top: 40%;
+	background: linear-gradient(45deg, #7f00ff, pink);
+	animation: object1 6s linear infinite;
+}
+.wrapper::after {
+	position: absolute;
+	content: "";
+	height: 200px;
+	width: 200px;
+	border-radius: 50%;
+	left: 35%;
+	top: 12%;
+	background: linear-gradient(45deg, #7f00ff, pink);
+	animation: object2 6s linear infinite;
+}
+@keyframes object1 {
+	50% {
+		left: -13%;
+		top: 41%;
+	}
+}
+@keyframes object2 {
+	50% {
+		left: 35%;
+		top: 10%;
+	}
+}
+.cols {
+	width: 50%;
+}
+.cols0 {
+	width: 70%;
+	z-index: 5;
+}
+.topline {
+	display: block;
+	position: relative;
+	font-size: 35px;
+	list-style: 5px;
+	color: #3d535f;
+}
+.topline::after {
+	position: absolute;
+	content: "";
+	height: 4px;
+	width: 45px;
+	bottom: 10px;
+	background-color: #7f00ff;
+}
+h1 {
+	display: block;
+	font-size: 7em;
+	font-weight: 900;
+	color: #3d535f;
+}
+.multiText {
+	color: #7f00ff;
+	text-transform: capitalize;
+}
+p {
+	display: block;
+	width: 90%;
+	font-size: 1.2em;
+	color: #3d535f;
+}
+.btns {
+	width: 100%;
+	position: relative;
+	left: 150px;
+}
+button {
+	outline: none;
+	border: none;
+	cursor: pointer;
+	font-size: 25px;
+	font-weight: 400;
+	color: #fff;
+	background-color: #3d535f;
+	padding: 8px 14px;
+	margin: 40px 5px;
+	letter-spacing: 2px;
+	text-transform: capitalize;
+	box-shadow: 0 15px 10px rgba(0, 0, 0, 0.4);
+}
+button:hover {
+	background-color: #7f00ff;
+}
+.imgbox {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+#splash {
+	position: relative;
+	height: 100%;
+	width: calc(140% - 80px);
+	top: -140px;
+	right: 50px;
+	transform: rotateY(180deg);
+	animation: splash 4s linear infinite;
+}
+#yu {
+	position: relative;
+	height: 100%;
+	width: calc(100% - 80px);
+	top: -20px;
+	right: 30px;
+}
+@keyframes splash {
+	50% {
+		right: 30px;
+		top: -90px;
+	}
+}
+.imgbox #splash {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%) rotate(-35deg);
+	width: 160%;
+	filter: saturate(200%);
+	animation: animate 4s linear infinite;
+}
+@keyframes animate {
+	50% {
+		top: 49%;
+		left: 51%;
+		width: 155%;
+	}
+}
+.side-project-container {
+	display: flex;
+	width: 100%;
+	height: calc(100vh - 80px);
+	justify-content: center;
+	padding: 0 10%;
+	overflow: hidden;
+}
+.yt-url > input[type="text"] {
+	border: 3px solid #000;
+	border-radius: 5px;
+	height: 50px;
+	line-height: normal;
+	color: #282828;
+	display: block;
+	width: 100%;
+	box-sizing: border-box;
+	user-select: auto;
+	font-size: 16px;
+	padding: 0 6px;
+	padding-left: 12px;
+}
+.yt-url > input[type="text"]:focus {
+    border: 3px solid #5551ff;
+}
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.yt-url > .center > button {
+	display: block;
+	outline: 0;
+	border: 0;
+	cursor: pointer;
+	text-decoration: none;
+	position: relative;
+	color: #000;
+	background: #fff;
+	line-height: 30px;
+	border-radius: 40px;
+	padding: 20px;
+	font-size: 30px;
+	font-weight: 600;
+	box-shadow: rgb(255, 198, 0) -2px -2px 0px 2px,
+		rgb(246, 84, 174) 0px 0px 0px 4px, rgba(0, 0, 0, 0.05) 0px 0px 2px 7px;
+	transition: all 0.2s;
+}
+.yt-url > .center > button:hover {
+    box-shadow: rgb(246, 84, 174) -2px -2px 0px 2px,
+        rgb(255, 198, 0) 0px 0px 0px 4px,
+        rgba(0, 0, 0, 0.05) 0px 0px 2px 7px;
+    transform: scale(1.01);
+}

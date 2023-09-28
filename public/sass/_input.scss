@@ -1,0 +1,88 @@
+$main-color: #f3f5f8;
+$secondary-color: #8000ffcb;
+$my-font-color: #7f00ff;
+$width: 1200px;
+
+.centered {
+	width: $width;
+	height: calc($width / 5);
+	margin: auto;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+
+.group {
+	width: 100%;
+	height: calc($width / 5);
+	overflow: hidden;
+	position: relative;
+}
+
+label {
+	position: absolute;
+	top: calc($width / 15);
+	color: rgba($my-font-color, 0.5);
+	font: 400 calc($width / 15) poppins;
+	cursor: text;
+	transition: 0.25s ease;
+}
+
+input {
+	display: block;
+	width: 100%;
+	padding-top: calc($width / 10);
+	border: none;
+	border-radius: 0;
+	color: black;
+	background: $main-color;
+	font-size: calc($width / 30);
+	transition: 0.3s ease;
+	&:valid {
+		~ label {
+			top: 60px;
+			font: 700 calc($width / 25) poppins;
+			color: rgba($my-font-color, 0.5);
+		}
+	}
+	&:focus {
+		outline: none;
+		~ label {
+			top: 60px;
+			font: 700 calc($width / 25) poppins;
+			color: $secondary-color;
+		}
+
+		~ .bar:before {
+			transform: translateX(0);
+		}
+	}
+
+	&:-webkit-autofill {
+		-webkit-box-shadow: 0 0 0px 1000px $main-color inset;
+		-webkit-text-fill-color: black !important;
+	}
+}
+
+.bar {
+	background: rgba($my-font-color, 0.5);
+	content: "";
+	width: $width;
+	height: calc($width / 150);
+	transition: 0.3s ease;
+	position: relative;
+	&:before {
+		content: "";
+		position: absolute;
+		width: 100%;
+		height: 150%;
+		background: $secondary-color;
+		transform: translateX(-100%);
+	}
+}
+
+::selection {
+	background: rgba($secondary-color, 0.3);
+}
