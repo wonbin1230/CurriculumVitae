@@ -25,7 +25,7 @@ label {
 	position: absolute;
 	top: calc($width / 15);
 	color: rgba($my-font-color, 0.5);
-	font: 400 calc($width / 15) poppins;
+	font: 400 calc($width / 15) "poppins";
 	cursor: text;
 	transition: 0.25s ease;
 }

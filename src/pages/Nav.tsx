@@ -20,9 +20,11 @@ export default () => {
 					</li>
 					<li id="showDetail">
 						<a href="#">SideProjects</a>
-						<li>
-							<a href="/ytdl">YouTube Downloader</a>
-						</li>
+						<ul>
+							<li>
+								<a href="/ytdl">YouTube Downloader</a>
+							</li>
+						</ul>
 					</li>
 				</ul>
 				<div className="links">

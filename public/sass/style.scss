@@ -1,6 +1,7 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;900;&display=swap");
+@import url(https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;900&display=swap);
 
 @import "input";
+@import "loading";
 
 @mixin purple-cercle-before {
 	position: absolute;
@@ -98,11 +99,11 @@ nav {
 	.navItems {
 		display: flex;
 
-		> li {
+		li {
 			list-style: none;
 			margin: 0 15px;
 
-			> a {
+			a {
 				font-size: 25px;
 				color: #3d535f;
 				letter-spacing: 3px;
@@ -116,8 +117,8 @@ nav {
 		}
 
 		#showDetail {
-			> li,
-			> li > a {
+			li,
+			li a {
 				line-height: 0;
 				visibility: hidden;
 				opacity: 0;
@@ -128,8 +129,8 @@ nav {
 			}
 
 			&:hover {
-				> li,
-				> li > a {
+				li,
+				li a {
 					visibility: visible;
 					opacity: 1;
 					font-size: 25px;
@@ -281,7 +282,6 @@ nav {
 
 // Youtube
 .side-project-container {
-	display: flex;
 	width: 100%;
 	height: calc(100vh - 80px);
 	justify-content: center;
@@ -297,13 +297,14 @@ nav {
 		font-size: 7em;
 		font-weight: 900;
 		color: #3d535f;
+        text-align: center;
 	}
 
 	.center {
 		display: flex;
 		justify-content: center;
 		align-items: center;
-        margin-top: 5%;
+		margin-top: 5%;
 	}
 
 	.yt-url {
@@ -334,4 +335,14 @@ nav {
 			}
 		}
 	}
+
+    .yt-preview {
+        text-align: center;
+
+        .slider {
+            max-width: 50%;
+            margin: 0 auto;
+            margin-top: 5%;
+        }
+    }
 }

@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;900;&display=swap");
+@import url(https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;900&display=swap);
 .centered {
   width: 1200px;
   height: 240px;
@@ -21,7 +21,7 @@ label {
   position: absolute;
   top: 80px;
   color: rgba(127, 0, 255, 0.5);
-  font: 400 80px poppins;
+  font: 400 80px "poppins";
   cursor: text;
   transition: 0.25s ease;
 }
@@ -77,6 +77,20 @@ input:-webkit-autofill {
 
 ::selection {
   background: rgba(128, 0, 255, 0.3);
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
+  background-color: rgba(192, 192, 192, 0.2352941176);
+  text-align: center;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 9999;
 }
 
 @keyframes object1 {
@@ -145,22 +159,22 @@ nav b {
 nav .navItems {
   display: flex;
 }
-nav .navItems > li {
+nav .navItems li {
   list-style: none;
   margin: 0 15px;
 }
-nav .navItems > li > a {
+nav .navItems li a {
   font-size: 25px;
   color: #3d535f;
   letter-spacing: 3px;
   text-decoration: none;
   text-transform: capitalize;
 }
-nav .navItems > li > a:hover {
+nav .navItems li a:hover {
   color: #7f00ff;
 }
-nav .navItems #showDetail > li,
-nav .navItems #showDetail > li > a {
+nav .navItems #showDetail li,
+nav .navItems #showDetail li a {
   line-height: 0;
   visibility: hidden;
   opacity: 0;
@@ -169,8 +183,8 @@ nav .navItems #showDetail > li > a {
   transform: rotate(720deg);
   transition: all 0.5s linear;
 }
-nav .navItems #showDetail:hover > li,
-nav .navItems #showDetail:hover > li > a {
+nav .navItems #showDetail:hover li,
+nav .navItems #showDetail:hover li a {
   visibility: visible;
   opacity: 1;
   font-size: 25px;
@@ -310,7 +324,6 @@ nav .links > a:hover {
 }
 
 .side-project-container {
-  display: flex;
   width: 100%;
   height: calc(100vh - 80px);
   justify-content: center;
@@ -333,6 +346,7 @@ nav .links > a:hover {
   font-size: 7em;
   font-weight: 900;
   color: #3d535f;
+  text-align: center;
 }
 .side-project-container .center {
   display: flex;
@@ -360,6 +374,14 @@ nav .links > a:hover {
 .side-project-container .yt-url button:hover {
   box-shadow: rgb(246, 84, 174) -2px -2px 0px 2px, rgb(255, 198, 0) 0px 0px 0px 4px, rgba(0, 0, 0, 0.05) 0px 0px 2px 7px;
   transform: scale(1.01);
+}
+.side-project-container .yt-preview {
+  text-align: center;
+}
+.side-project-container .yt-preview .slider {
+  max-width: 50%;
+  margin: 0 auto;
+  margin-top: 5%;
 }
 
 /*# sourceMappingURL=style.css.map */
