@@ -1,12 +1,12 @@
-import React from "react";
-import { useRef, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
+import type { RefObject } from "react";
 import Typed from "typed.js";
 
-export default () => {
-    const el = useRef(null);
+const homePage = () => {
+    const typeRef: RefObject<HTMLElement> = useRef(null);
 
     useEffect(() => {
-        const typed = new Typed(el.current, {
+        const typed: Typed = new Typed(typeRef.current, {
             strings: ["HTML", "CSS", "Node.js", "OracleDB", "PostgreSQL", "Docker"],
             loop: true,
             typeSpeed: 100,
@@ -26,7 +26,7 @@ export default () => {
                 <div className="cols cols0">
                     <span className="topline">Hello</span>
                     <h1>
-                        My Skills <br /><span className="multiText" ref={el}></span>
+                        My Skills <br /><span className="multiText" ref={typeRef}></span>
                     </h1>
                     <p>
                         Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -50,3 +50,5 @@ export default () => {
         </>
     );
 };
+
+export default homePage;

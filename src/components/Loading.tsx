@@ -5,13 +5,14 @@ interface Props {
     width?: number,
     height?: number,
 }
-
-export default (props: Props) => {
+const loadingDiv = ({ width, height }: Props) => {
 	return (
 		<>
 			<div className="loading">
-				<Puff stroke="red" width={props.width} height={props.height} />
+				<Puff stroke="red" width={width} height={height} />
 			</div>
 		</>
 	);
 };
+
+export default loadingDiv;

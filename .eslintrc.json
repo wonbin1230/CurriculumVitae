@@ -33,7 +33,7 @@
                 "@typescript-eslint/no-duplicate-type-constituents": "error",
                 "@typescript-eslint/no-base-to-string": "error",
                 "@typescript-eslint/no-unsafe-return": "error",
-                "@typescript-eslint/no-unsafe-assignment": "off",
+                "@typescript-eslint/no-unsafe-assignment": "error",
                 "@typescript-eslint/no-unnecessary-type-constraint": "error",
                 "@typescript-eslint/no-empty-interface": "error",
                 "@typescript-eslint/no-empty-function": "error",
@@ -44,7 +44,7 @@
                 "@typescript-eslint/consistent-type-exports": "error",
                 "@typescript-eslint/consistent-type-imports": "error",
                 "@typescript-eslint/typedef": [
-                    "off",
+                    "error",
                     {
                         "arrayDestructuring": true,
                         "arrowParameter": true,
@@ -194,6 +194,6 @@
         "dot-notation": [
             "error"
         ],
-        "react/display-name": "off"
+        "react/display-name": "error"
     }
 }

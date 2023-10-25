@@ -328,7 +328,7 @@ nav .links > a:hover {
   height: calc(100vh - 80px);
   justify-content: center;
   padding: 0 10%;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 .side-project-container::before {
   position: absolute;
@@ -343,7 +343,7 @@ nav .links > a:hover {
 }
 .side-project-container h1 {
   display: block;
-  font-size: 7em;
+  font-size: 7vw;
   font-weight: 900;
   color: #3d535f;
   text-align: center;
@@ -352,7 +352,9 @@ nav .links > a:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 5%;
+  margin-top: 2%;
+  position: relative;
+  z-index: 999;
 }
 .side-project-container .yt-url button {
   display: block;
@@ -378,10 +380,83 @@ nav .links > a:hover {
 .side-project-container .yt-preview {
   text-align: center;
 }
+.side-project-container .yt-preview video {
+  max-height: 350px;
+}
+.side-project-container .yt-preview .volume {
+  max-width: 20%;
+  max-height: 10px;
+  margin: 0 auto;
+}
+.side-project-container .yt-preview .volume .noUi-base {
+  position: relative;
+}
+.side-project-container .yt-preview .volume .noUi-base::before {
+  content: "";
+  width: 20px;
+  height: 20px;
+  background: url("../volume.png");
+  background-size: 20px 20px;
+  position: absolute;
+  left: -10%;
+  top: -60%;
+}
+.side-project-container .yt-preview .volume .noUi-handle {
+  height: 18px;
+  width: 18px;
+  top: -5px;
+  right: -9px;
+  border-radius: 9px;
+}
 .side-project-container .yt-preview .slider {
   max-width: 50%;
   margin: 0 auto;
-  margin-top: 5%;
+  margin-top: 2%;
+}
+.side-project-container .yt-preview .slider .noUi-connect {
+  background-color: #c0392b;
+}
+.side-project-container .yt-preview .type-btn {
+  outline: none;
+  border: none;
+  cursor: pointer;
+  font-size: 25px;
+  font-weight: 400;
+  color: #fff;
+  background-color: #3d535f;
+  padding: 8px 14px;
+  margin: 0 5px;
+  letter-spacing: 2px;
+  text-transform: capitalize;
+  box-shadow: 0 15px 10px rgba(0, 0, 0, 0.4);
+}
+.side-project-container .yt-preview .type-btn:hover {
+  background-color: #7f00ff;
+}
+.side-project-container .yt-preview .type-btn-focus {
+  background-color: #7f00ff;
+}
+.side-project-container .yt-preview .action-btn {
+  display: block;
+  outline: 0;
+  border: 0;
+  cursor: pointer;
+  text-decoration: none;
+  position: relative;
+  color: #000;
+  background: #fff;
+  line-height: 30px;
+  border-radius: 40px;
+  padding: 20px;
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0 5%;
+  box-shadow: rgb(255, 198, 0) -2px -2px 0px 2px, rgb(246, 84, 174) 0px 0px 0px 4px, rgba(0, 0, 0, 0.05) 0px 0px 2px 7px;
+  transition: all 0.2s;
+}
+.side-project-container .yt-preview .action-btn:hover {
+  box-shadow: rgb(246, 84, 174) -2px -2px 0px 2px, rgb(255, 198, 0) 0px 0px 0px 4px, rgba(0, 0, 0, 0.05) 0px 0px 2px 7px;
+  transform: scale(1.01);
 }
 
 /*# sourceMappingURL=style.css.map */
