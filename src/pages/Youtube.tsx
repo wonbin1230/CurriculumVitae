@@ -1,16 +1,22 @@
-import React, { useState, useRef, useEffect } from "react";
-import type { Dispatch, SetStateAction, RefObject, MutableRefObject } from "react";
-import axios from "axios";
-import Loading from "../components/Loading";
-import noUiSlider, { PipsMode } from "nouislider";
-import "nouislider/dist/nouislider.css";
+import type {
+	Dispatch,
+	SetStateAction,
+	RefObject,
+	MutableRefObject,
+} from "react";
 import type {
 	ITargetElement,
 	IItagInfo,
 	ISendResult,
-    IApiPreviewVideo,
-    IApiDownload,
-} from "../modal/youtubeModal";
+	IApiPreviewVideo,
+	IApiDownload,
+} from "../modals/youtubeModal";
+
+import React, { useState, useRef, useEffect } from "react";
+import { apiGenPreviewVideo, apiGetPreviewVideo, apiDownload } from "../services/axiosService";
+import Loading from "../components/Loading";
+import noUiSlider, { PipsMode } from "nouislider";
+import "nouislider/dist/nouislider.css";
 
 const youtubePage = () => {
 	const [inputUrl, setInputUrl]: [string, Dispatch<string>] =
@@ -49,8 +55,6 @@ const youtubePage = () => {
 		ISendResult,
 		Dispatch<SetStateAction<ISendResult>>
 	] = useState<ISendResult>();
-	const [deletePath, setDeletePath]: [string, Dispatch<string>] =
-		useState<string>("");
 
 	const videoRef: MutableRefObject<HTMLVideoElement> =
 		useRef<HTMLVideoElement>(null);
@@ -65,19 +69,13 @@ const youtubePage = () => {
 
 	const getYtVideo = async () => {
 		setIsLoading(true);
-		const apiUrl: string = "http://127.0.0.1:5000/crawler/youtube/preview";
-		const result: IApiPreviewVideo = await axios.post(apiUrl, {
-			url: inputUrl,
-		});
+		const result: IApiPreviewVideo = await apiGenPreviewVideo({ url: inputUrl });
 		if (Object.keys(result.data).length !== 2) {
 			setIsLoading(false);
 			alert("Can not find viedo from youtube");
 			return false;
 		}
-		setDeletePath(result.data.videoFolderID);
-		setVideoPath(
-			`http://127.0.0.1:5000/crawler/youtube/preview/${result.data.videoFolderID}`
-		);
+		setVideoPath(apiGetPreviewVideo(result.data.videoFolderID));
 		setSendResult({
 			range: {
 				start: 0,
@@ -97,9 +95,6 @@ const youtubePage = () => {
 	};
 
 	const onReady = async () => {
-		await axios.delete(
-			`http://127.0.0.1:5000/crawler/youtube/video/${deletePath}`
-		);
 		if (videoRef.current) {
 			setDuration(videoRef.current.duration);
 		}
@@ -149,15 +144,11 @@ const youtubePage = () => {
 	const download = async () => {
 		videoRef.current.pause();
 		setIsLoading(true);
-		const downloadUrl: string =
-			"http://127.0.0.1:5000/crawler/youtube/download";
-		const result: IApiDownload = await axios.post(
-			downloadUrl,
-			{ ...sendResult, url: inputUrl },
-			{ responseType: "blob" }
-		);
+        const result: IApiDownload = await apiDownload({ ...sendResult, url: inputUrl });
 		const url: string = window.URL.createObjectURL(
-			new Blob([result.data], { type: result.headers["Content-Type"] as string })
+			new Blob([result.data], {
+				type: result.headers["Content-Type"] as string,
+			})
 		);
 		const a: HTMLAnchorElement = document.createElement("a");
 		a.href = url;
@@ -368,10 +359,19 @@ const youtubePage = () => {
 						</div>
 						<div className="center">
 							<button className="action-btn" onClick={download}>
-								DOWNLOAD
+								下載{mediaActiveIndex === 0 ? "音檔" : "影片"}
 							</button>
 							<button className="action-btn" onClick={reset}>
-								RESET
+								重置預覽剪輯
+							</button>
+						</div>
+						<div className="center">
+							<button
+								className="action-btn"
+								onClick={() => {
+									location.reload();
+								}}>
+								重新選擇影片
 							</button>
 						</div>
 					</div>

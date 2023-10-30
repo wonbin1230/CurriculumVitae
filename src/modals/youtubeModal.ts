@@ -33,3 +33,7 @@ export interface ISendResult {
 	mediaType: string,
 	itag: number,
 }
+
+export interface IApiSendResult extends ISendResult {
+    url: string,
+}
