@@ -86,7 +86,8 @@
                     {
                         "selector": "default",
                         "format": [
-                            "camelCase"
+                            "camelCase",
+                            "PascalCase"
                         ]
                     },
                     {
