@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from "react";
 import type { RefObject } from "react";
 import Typed from "typed.js";
 
-const homePage = () => {
+const Home = () => {
     const typeRef: RefObject<HTMLElement> = useRef(null);
 
     useEffect(() => {
@@ -51,4 +51,4 @@ const homePage = () => {
     );
 };
 
-export default homePage;
+export default Home;

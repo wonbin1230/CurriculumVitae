@@ -18,15 +18,13 @@ import Loading from "../components/Loading";
 import noUiSlider, { PipsMode } from "nouislider";
 import "nouislider/dist/nouislider.css";
 
-const youtubePage = () => {
+const Youtube = () => {
 	const [inputUrl, setInputUrl]: [string, Dispatch<string>] =
 		useState<string>("");
 	const [isLoading, setIsLoading]: [boolean, Dispatch<boolean>] =
 		useState<boolean>(false);
 	const [videoPath, setVideoPath]: [string, Dispatch<string>] =
 		useState<string>("");
-	const [isPreviewReady, setIsPreviewReady]: [boolean, Dispatch<boolean>] =
-		useState<boolean>(false);
 	const [videoItagList, setVideoItagList]: [
 		IItagInfo[],
 		Dispatch<IItagInfo[]>
@@ -98,7 +96,6 @@ const youtubePage = () => {
 		if (videoRef.current) {
 			setDuration(videoRef.current.duration);
 		}
-		setIsPreviewReady(true);
 	};
 
 	const handleSlider = (valueBegin: number, valueEnd: number) => {
@@ -231,7 +228,7 @@ const youtubePage = () => {
 				handleVolume(values);
 			});
 		}
-	}, [isPreviewReady]);
+	}, [duration]);
 
 	return (
 		<>
@@ -381,4 +378,4 @@ const youtubePage = () => {
 	);
 };
 
-export default youtubePage;
+export default Youtube;

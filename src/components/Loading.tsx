@@ -5,7 +5,7 @@ interface Props {
     width?: number,
     height?: number,
 }
-const loadingDiv = ({ width, height }: Props) => {
+const Loading = ({ width, height }: Props) => {
 	return (
 		<>
 			<div className="loading">
@@ -15,4 +15,4 @@ const loadingDiv = ({ width, height }: Props) => {
 	);
 };
 
-export default loadingDiv;
+export default Loading;
