@@ -101,6 +101,17 @@ const Youtube = () => {
 		}));
 	};
 
+    const handleOnReady = () => {
+        const mobileDevice: string[] = ["Android", "webOS", "iPhone", "iPad", "iPod", "BlackBerry", "Windows Phone"];
+        const isMobileDevice: boolean = mobileDevice.some((userAgent: string) => navigator.userAgent.match(userAgent));
+        if (!isMobileDevice) {
+            videoRef.current.pause();
+        }
+        if (isMobileDevice) {
+            volumeRef.current.style.display = "none";
+        }
+    };
+
 	const download = () => {
         socket.off("status");
         socket.off("chunk");
@@ -226,6 +237,7 @@ const Youtube = () => {
 									}
 								}
 							}}
+                            onCanPlay={handleOnReady}
                             controls
                             autoPlay
                             playsInline>
