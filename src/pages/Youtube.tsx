@@ -15,7 +15,7 @@ const Youtube = () => {
 	const [videoItagList, setVideoItagList]: [IItagInfo[], Dispatch<IItagInfo[]>] = useState<IItagInfo[]>([]);
 	const [audioItagList, setAudioItagList]: [IItagInfo[], Dispatch<IItagInfo[]>] = useState<IItagInfo[]>([]);
 	const [isPreview, setIsPreview]: [boolean, Dispatch<boolean>] = useState<boolean>(false);
-	const [duration, setDuration]: [number, Dispatch<number>] = useState<number>(1);
+    const [sliderMax, setSliderMax]: [number, Dispatch<number>] = useState<number>(1);
 	const [pauseTime, setPauseTime]: [number, Dispatch<number>] = useState<number>(0);
 	const [mediaActiveIndex, setMediaActiveIndex]: [number, Dispatch<number>] = useState<number>(0);
 	const [videoItagActiveIndex, setVideoItagActiveIndex]: [number, Dispatch<number>] = useState<number>(0);
@@ -54,6 +54,7 @@ const Youtube = () => {
 			}
             const url: string = URL.createObjectURL(new Blob(receivedChunks, { type: "video/mp4", }));
 			setVideoPath(url);
+            setSliderMax(Number(result.lengthSeconds));
 			setSendResult({
 				range: {
 					start: 0,
@@ -67,12 +68,6 @@ const Youtube = () => {
 			setIsPreview(true);
 			setIsLoading(false);
 		});
-	};
-
-	const onReady = async () => {
-		if (videoRef.current) {
-			setDuration(videoRef.current.duration);
-		}
 	};
 
 	const handleSlider = (valueBegin: number, valueEnd: number) => {
@@ -142,14 +137,13 @@ const Youtube = () => {
 		sliderRef.current.noUiSlider.reset();
 		videoRef.current.pause();
 		videoRef.current.currentTime = 0;
-		setDuration(videoRef.current.duration);
 	};
 
 	useEffect(() => {
 		if (sliderRef.current) {
 			noUiSlider.create(sliderRef.current, {
-				range: { min: 0, max: duration },
-				start: [0, duration],
+				range: { min: 0, max: sliderMax },
+				start: [0, sliderMax],
 				tooltips: [true, true],
 				format: {
 					to: function (value: number) {
@@ -161,7 +155,7 @@ const Youtube = () => {
 				},
 				pips: {
 					mode: PipsMode.Values,
-					values: [0, duration],
+					values: [0, sliderMax],
 					format: {
 						to: function (value: number) {
 							return String(Math.floor(value / 60)) + ":" + String(Math.floor(value % 60)).padStart(2, "0");
@@ -197,7 +191,7 @@ const Youtube = () => {
 				handleVolume(values);
 			});
 		}
-	}, [duration]);
+	}, [sliderMax]);
 
 	return (
 		<>
@@ -223,7 +217,7 @@ const Youtube = () => {
 					<div className="yt-preview">
 						<video
 							ref={videoRef}
-							preload="auto"
+							preload="none"
 							width={600}
 							onTimeUpdate={() => {
 								if (pauseTime !== 0) {
@@ -233,8 +227,7 @@ const Youtube = () => {
 								}
 							}}
                             controls={true}
-                            playsInline
-							onLoadedData={onReady}>
+                            playsInline>
                             <source type="video/mp4" src={videoPath} />
 							<p>你的瀏覽器不支援 HTML 5 video tag</p>
 						</video>
