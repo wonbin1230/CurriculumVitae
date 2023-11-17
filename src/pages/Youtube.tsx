@@ -232,6 +232,7 @@ const Youtube = () => {
 									}
 								}
 							}}
+                            controls={true}
                             playsInline
 							onLoadedData={onReady}>
                             <source type="video/mp4" src={videoPath} />

@@ -208,6 +208,7 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:foc
 
 body {
   overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 .container {
@@ -390,6 +391,7 @@ nav .links > a:hover {
   align-items: center;
   padding: 0 10%;
   overflow-x: hidden;
+  overflow-y: auto;
   position: relative;
   z-index: 888;
 }
@@ -630,6 +632,7 @@ nav .links > a:hover {
   justify-content: center;
   padding: 0 10%;
   overflow-x: hidden;
+  overflow-y: auto;
 }
 .side-project-container::before {
   position: absolute;
