@@ -227,6 +227,7 @@ const Youtube = () => {
 								}
 							}}
                             controls={true}
+                            muted
                             playsInline>
                             <source type="video/mp4" src={videoPath} />
 							<p>你的瀏覽器不支援 HTML 5 video tag</p>

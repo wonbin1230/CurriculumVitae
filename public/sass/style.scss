@@ -208,11 +208,14 @@ nav {
 	align-items: center;
 	padding: 0 10%;
 	overflow-x: hidden;
-    overflow-y: auto;
+    overflow-y: hidden;
     position: relative;
     z-index: 888;
     @include mobile {
-        display: block;
+        height: auto;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: baseline;
     }
 
 	&::before {
