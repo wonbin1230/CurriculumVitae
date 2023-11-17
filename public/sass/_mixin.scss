@@ -85,7 +85,7 @@
 
 @keyframes object2-mobile {
     50% {
-        left: 75%;
+        left: 85%;
         top: 16%;
     }
 }
@@ -109,7 +109,7 @@
     @include mobile {
         height: 6rem;
         width: 6rem;
-        left: 75%;
+        left: 90%;
         top: 18%;
         animation: object2-mobile 6s linear infinite;
     }
