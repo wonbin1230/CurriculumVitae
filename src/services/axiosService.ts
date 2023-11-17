@@ -1,9 +1,9 @@
 import type { AxiosInstance } from "axios";
-import type { IApiSendResult } from "../modals/youtubeModal";
+import type { IApiSendResult } from "../model/youtubeModel";
 
 import axios from "axios";
 
-const baseURL: string = process.env.REACT_APP_YOUTUBE_URL || "http://192.168.1.21:5000/crawler/youtube/";
+const baseURL: string = process.env.REACT_APP_YOUTUBE_URL || "http://localhost:5000/crawler/youtube/";
 const youtubeRequest: AxiosInstance = axios.create({ baseURL });
 
 export const apiGenPreviewVideo = (data: { url: string }) => youtubeRequest.post("/preview", data);

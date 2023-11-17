@@ -1,0 +1,116 @@
+@mixin desktop {
+    @media(min-width: 769px) {
+        @content;
+    }
+}
+
+@mixin desktop-1280 {
+    @media(max-width: 1280px) {
+        @content;
+    }
+}
+
+@mixin pad {
+    @media(max-width: 768px) {
+        @content;
+    }
+}
+
+@mixin mobile {
+    @media(max-width: 430px) {
+        @content;
+    }
+}
+
+@keyframes object1 {
+	50% {
+		left: -13%;
+		top: 41%;
+	}
+}
+
+@keyframes object1-pad {
+    50% {
+        left: -27%;
+        top: 39%;
+    }
+}
+
+@keyframes object1-mobile {
+    50% {
+        left: -34%;
+        top: 49%;
+    }
+}
+
+@mixin purple-cercle-before {
+	position: absolute;
+	content: "";
+	height: 37.5rem;
+	width: 37.5rem;
+	left: -12%;
+	top: 40%;
+    border-radius: 50%;
+	background: linear-gradient(45deg, #7f00ff, pink);
+	animation: object1 6s linear infinite;
+    @include pad {
+        height: 30rem;
+        width: 30rem;
+        left: -28%;
+        top: 40%;
+        animation: object1-pad 6s linear infinite;
+    }
+    @include mobile {
+        height: 15rem;
+        width: 15rem;
+        left:-35%;
+        top: 50%;
+        animation: object1-mobile 6s linear infinite;
+    }
+}
+
+@keyframes object2 {
+	50% {
+		left: 35%;
+		top: 10%;
+	}
+}
+
+@keyframes object2-pad {
+    50% {
+        left: 35%;
+        top: 16%;
+    }
+}
+
+@keyframes object2-mobile {
+    50% {
+        left: 75%;
+        top: 16%;
+    }
+}
+
+@mixin purple-cercle-after {
+	position: absolute;
+	content: "";
+	height: 12.5rem;
+	width: 12.5rem;
+	border-radius: 50%;
+	left: 35%;
+	top: 12%;
+	background: linear-gradient(45deg, #7f00ff, pink);
+	animation: object2 6s linear infinite;
+    @include pad {
+        height: 8rem;
+        width: 8rem;
+        top: 18%;
+        animation: object2-pad 6s linear infinite;
+    }
+    @include mobile {
+        height: 6rem;
+        width: 6rem;
+        left: 75%;
+        top: 18%;
+        animation: object2-mobile 6s linear infinite;
+    }
+}

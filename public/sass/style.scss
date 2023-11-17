@@ -2,58 +2,7 @@
 
 @import "input";
 @import "loading";
-
-@mixin purple-cercle-before {
-	position: absolute;
-	content: "";
-	height: 600px;
-	width: 600px;
-	border-radius: 50%;
-	left: -12%;
-	top: 40%;
-	background: linear-gradient(45deg, #7f00ff, pink);
-	animation: object1 6s linear infinite;
-}
-
-@mixin purple-cercle-after {
-	position: absolute;
-	content: "";
-	height: 200px;
-	width: 200px;
-	border-radius: 50%;
-	left: 35%;
-	top: 12%;
-	background: linear-gradient(45deg, #7f00ff, pink);
-	animation: object2 6s linear infinite;
-}
-
-@keyframes object1 {
-	50% {
-		left: -13%;
-		top: 41%;
-	}
-}
-@keyframes object2 {
-	50% {
-		left: 35%;
-		top: 10%;
-	}
-}
-
-@keyframes splash {
-	50% {
-		right: 30px;
-		top: -90px;
-	}
-}
-
-@keyframes animate {
-	50% {
-		top: 49%;
-		left: 51%;
-		width: 155%;
-	}
-}
+@import "mixin";
 
 * {
 	margin: 0;
@@ -75,40 +24,53 @@ body {
 // NAV
 nav {
 	display: flex;
+    position: relative;
 	width: 100%;
-	height: 80px;
 	justify-content: space-around;
-	line-height: 80px;
+	line-height: 5rem;
 	z-index: 111;
+    background-color: #f3f5f8;
 
 	.logo {
 		display: flex;
-		font-size: 40px;
+		font-size: 2.5rem;
 		font-weight: 800;
 		color: #3d535f;
-		letter-spacing: 3px;
+		letter-spacing: .1875rem;
 		cursor: pointer;
 		text-transform: uppercase;
+        @include pad {
+            font-size: 2rem;
+        }
 	}
 
 	b {
-		font-size: 70px;
+		font-size: 4.375rem;
 		color: #7f00ff;
+        @include pad {
+            font-size: 4rem;
+        }
 	}
 
 	.navItems {
 		display: flex;
+        @include pad {
+            width: 30rem;
+        }
 
 		li {
 			list-style: none;
-			margin: 0 15px;
+			margin: 0 0.9rem;
 
 			a {
-				font-size: 25px;
+				font-size: 1.5625rem;
 				color: #3d535f;
-				letter-spacing: 3px;
+				letter-spacing: .1875rem;
 				text-decoration: none;
 				text-transform: capitalize;
+                @include pad {
+                    font-size: 1.3rem;
+                }
 
 				&:hover {
 					color: #7f00ff;
@@ -122,7 +84,7 @@ nav {
 				line-height: 0;
 				visibility: hidden;
 				opacity: 0;
-				letter-spacing: 3px;
+				letter-spacing: .1875rem;
 				text-decoration: none;
 				transform: rotate(720deg);
 				transition: all 0.5s linear;
@@ -131,22 +93,45 @@ nav {
 			&:hover {
 				li,
 				li a {
+                    line-height: 1;
+                    font-size: 1.5625rem;
 					visibility: visible;
 					opacity: 1;
-					font-size: 25px;
 					color: #e93838;
 					text-decoration: none;
 					transform: rotate(0deg);
+                    @include pad {
+                        line-height: 1;
+                        font-size: 1.3rem;
+                    }
 				}
 			}
 		}
+
+        @include mobile {
+            display: none;
+        }
 	}
 
+    .menuIconMobile {
+        display: none;
+        @include mobile {
+            display: block;
+            font-size: 1.5rem;
+        }
+    }
+
 	.links {
+        white-space: nowrap;
+
 		> a {
-			font-size: 30px;
-			color: #3d535f;
-			margin: 25px 10px;
+            color: #3d535f;
+			font-size: 1.875rem;
+            margin: .15625rem .625rem;
+            @include pad {
+                font-size: 1.5rem;
+                margin: .15625rem .4375rem;
+            }
 
 			&:hover {
 				color: #7f00ff;
@@ -155,15 +140,76 @@ nav {
 	}
 }
 
+@keyframes navItemsMobile {
+    0% {
+        top: -10%;
+    }
+    100% {
+        top: 8%;
+    }
+}
+
+.navItemsMobile {
+    display: none;
+    position: absolute;
+    width: 100%;
+    background-color: #f3f5f8;
+    z-index: 10;
+    animation: navItemsMobile 0.1s linear;
+
+    li {
+        list-style: none;
+        padding-left: 20%;
+    }
+
+    a {
+        color: #3d535f;
+		text-decoration: none;
+		text-transform: capitalize;
+
+        &:hover {
+            color: #7f00ff;
+        }
+    }
+
+    #showDetail {
+        li,
+        li a {
+            line-height: 0;
+            visibility: hidden;
+            opacity: 0;
+            text-decoration: none;
+            transform: rotate(720deg);
+            transition: all 0.5s linear;
+            padding-left: 5%;
+        }
+
+        &:hover {
+            li,
+            li a {
+                line-height: 1;
+                visibility: visible;
+                opacity: 1;
+                color: #e93838;
+                text-decoration: none;
+                transform: rotate(0deg);
+            }
+        }
+    }
+}
+
 // HOME
 .wrapper {
 	display: flex;
 	width: 100%;
-	height: calc(100vh - 80px);
+	height: calc(100vh - 5rem);
 	justify-content: center;
 	align-items: center;
 	padding: 0 10%;
 	overflow: hidden;
+    @include mobile {
+        display: block;
+    }
 
 	&::before {
 		@include purple-cercle-before;
@@ -180,27 +226,30 @@ nav {
 	.cols0 {
 		width: 70%;
 		z-index: 5;
+        @include mobile {
+            width: 100%;
+        }
 
 		.topline {
 			display: block;
 			position: relative;
-			font-size: 35px;
-			list-style: 5px;
+			font-size: 2.1875rem;
+			list-style: .3125rem;
 			color: #3d535f;
 
 			&::after {
 				position: absolute;
 				content: "";
-				height: 4px;
-				width: 45px;
-				bottom: 10px;
+				height: .25rem;
+				width: 2.8125rem;
+				bottom: .625rem;
 				background-color: #7f00ff;
 			}
 		}
 
 		h1 {
 			display: block;
-			font-size: 7em;
+			font-size: 7vw;
 			font-weight: 900;
 			color: #3d535f;
 
@@ -213,23 +262,36 @@ nav {
 		p {
 			display: block;
 			width: 90%;
-			font-size: 1.2em;
+			font-size: 1.2rem;
 			color: #3d535f;
+            @include pad {
+                font-size: 1rem;
+            }
+            @include mobile {
+                font-size: .8rem;
+            }
 		}
 
 		button {
 			outline: none;
 			border: none;
 			cursor: pointer;
-			font-size: 25px;
+			font-size: 1.5625rem;
 			font-weight: 400;
 			color: #fff;
 			background-color: #3d535f;
-			padding: 8px 14px;
-			margin: 40px 5px;
-			letter-spacing: 2px;
+			padding: .5rem .875rem;
+			margin: 2.5rem .3125rem;
+			letter-spacing: .125rem;
 			text-transform: capitalize;
-			box-shadow: 0 15px 10px rgba(0, 0, 0, 0.4);
+			box-shadow: 0 .9375rem .625rem rgba(0, 0, 0, 0.4);
+            @include pad {
+                font-size: 1.2rem;
+            }
+            @include mobile {
+                font-size: .8rem;
+                margin: .5rem .5rem;
+            }
 
 			&:hover {
 				background-color: #7f00ff;
@@ -238,8 +300,9 @@ nav {
 
 		.btns {
 			width: 100%;
-			position: relative;
-			left: 150px;
+            @include desktop {
+                position: relative;
+            }
 		}
 	}
 
@@ -248,6 +311,31 @@ nav {
 			position: relative;
 			width: 100%;
 			height: 100%;
+            @include desktop-1280 {
+                width: 130%;
+            }
+            @include pad {
+                width: 160%;
+            }
+            @include mobile {
+                width: 200%;
+            }
+
+            @keyframes animate {
+                50% {
+                    top: 49%;
+                    left: 51%;
+                    width: 155%;
+                }
+            }
+
+            @keyframes animate-mobile {
+                50% {
+                    top: 49%;
+                    left: 51%;
+                    width: 95%;
+                }
+            }
 
 			#splash {
 				position: absolute;
@@ -257,15 +345,27 @@ nav {
 				width: 160%;
 				filter: saturate(200%);
 				animation: animate 4s linear infinite;
+                @include mobile {
+                    width: 100%;
+                    transform: translate(-45%, -45%) rotate(0deg);
+                    animation: animate-mobile 4s linear infinite;
+                }
 			}
 		}
+
+        @keyframes splash {
+            50% {
+                right: 1.875rem;
+                top: -5.625rem;
+            }
+        }
 
 		#splash {
 			position: relative;
 			height: 100%;
-			width: calc(140% - 80px);
-			top: -140px;
-			right: 50px;
+			width: calc(140% - 5rem);
+			top: -8.75rem;
+			right: 3.125rem;
 			transform: rotateY(180deg);
 			animation: splash 4s linear infinite;
 		}
@@ -273,9 +373,14 @@ nav {
 		#yu {
 			position: relative;
 			height: 100%;
-			width: calc(100% - 80px);
-			top: -20px;
-			right: 30px;
+			width: calc(100% - 5rem);
+			top: -1.25rem;
+			right: 1.875rem;
+            @include mobile {
+                width: 100%;
+                top: 0;
+                right: 5%;
+            }
 		}
 	}
 }
@@ -283,7 +388,7 @@ nav {
 // Youtube
 .side-project-container {
 	width: 100%;
-	height: calc(100vh - 80px);
+	height: calc(100vh - 5rem);
 	justify-content: center;
 	padding: 0 10%;
 	overflow-x: hidden;
@@ -339,16 +444,29 @@ nav {
 	}
 
 	.yt-preview {
+        position: relative;
+        z-index: 999;
 		text-align: center;
 
         video {
-            max-height: 350px;
+            max-width: 100vw;
+            @include mobile {
+                max-width: 80vw;
+            }
         }
 
 		.volume {
 			max-width: 20%;
             max-height: 10px;
 			margin: 0 auto;
+            @include pad {
+                margin-top: 2%;
+                max-width: 50%;
+            }
+            @include mobile {
+                margin-top: 2%;
+                max-width: 80%;
+            }
 
             .noUi-base {
                 position: relative;
@@ -377,6 +495,14 @@ nav {
 			max-width: 50%;
 			margin: 0 auto;
 			margin-top: 2%;
+            @include pad {
+                max-width: 80%;
+                margin-top: 10%;
+            }
+            @include mobile {
+                max-width: 100%;
+                margin-top: 20%;
+            }
 
 			.noUi-connect {
 				background-color: #c0392b;
@@ -396,6 +522,12 @@ nav {
 			letter-spacing: 2px;
 			text-transform: capitalize;
 			box-shadow: 0 15px 10px rgba(0, 0, 0, 0.4);
+            @include pad {
+                margin: 2% 5px;
+            }
+            @include mobile {
+                margin: 5% 5px;
+            }
 
 			&:hover {
 				background-color: #7f00ff;
@@ -420,11 +552,14 @@ nav {
 			padding: 20px;
 			font-size: 20px;
 			font-weight: 600;
-			margin: 0 5% 5% 5%;
+			margin: 0 5% 1% 5%;
 			box-shadow: rgb(255, 198, 0) -2px -2px 0px 2px,
 				rgb(246, 84, 174) 0px 0px 0px 4px,
 				rgba(0, 0, 0, 0.05) 0px 0px 2px 7px;
 			transition: all 0.2s;
+            @include mobile {
+                font-size: 16px;
+            }
 
 			&:hover {
 				box-shadow: rgb(246, 84, 174) -2px -2px 0px 2px,

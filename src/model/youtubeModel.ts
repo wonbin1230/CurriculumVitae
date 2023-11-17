@@ -10,19 +10,15 @@ export interface IItagInfo {
     resolution: string,
 }
 
-export interface IApiPreviewVideo extends AxiosResponse {
-	data: {
-		videoFolderID: string,
-		videoInfo: {
-			lengthSeconds: string,
-			videoItagList: IItagInfo[],
-			audioItagList: IItagInfo[],
-		},
-	},
+export interface IWsPreviewVideo {
+	lengthSeconds: string,
+	videoItagList: IItagInfo[],
+	audioItagList: IItagInfo[],
 }
 
-export interface IApiDownload extends AxiosResponse {
-    data: Blob,
+export interface IWsDownload {
+    mediaType: string,
+    titleName: string,
 }
 
 export interface ISendResult {

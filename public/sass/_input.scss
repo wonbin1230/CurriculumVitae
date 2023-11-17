@@ -1,10 +1,12 @@
-$main-color: #f3f5f8;
+$main-color: transparent;
 $secondary-color: #8000ffcb;
 $my-font-color: #7f00ff;
-$width: 1200px;
+$width: 100vh;
+
+@import "mixin";
 
 .centered {
-	width: $width;
+	max-width: $width;
 	height: calc($width / 5);
 	margin: auto;
 	position: absolute;
@@ -12,6 +14,9 @@ $width: 1200px;
 	bottom: 0;
 	left: 0;
 	right: 0;
+	@include pad {
+		margin: auto 5%;
+	}
 }
 
 .group {
@@ -28,6 +33,10 @@ label {
 	font: 400 calc($width / 15) "poppins";
 	cursor: text;
 	transition: 0.25s ease;
+    @include pad {
+        top: calc($width / 25);
+        font-size: calc($width / 20);
+    }
 }
 
 input {
@@ -40,28 +49,45 @@ input {
 	background: $main-color;
 	font-size: calc($width / 30);
 	transition: 0.3s ease;
+    @include pad {
+        padding-top: calc($width / 15);
+        font-size: calc($width / 40);
+    }
 	&:valid {
 		~ label {
-			top: 60px;
+			top: 45px;
 			font: 700 calc($width / 25) poppins;
 			color: rgba($my-font-color, 0.5);
+            @include pad {
+                top: 0;
+            }
 		}
 	}
 	&:focus {
 		outline: none;
 		~ label {
-			top: 60px;
+			top: 45px;
 			font: 700 calc($width / 25) poppins;
 			color: $secondary-color;
+            @include pad {
+                top: 0;
+            }
 		}
 
 		~ .bar:before {
 			transform: translateX(0);
+            @include pad {
+                transform: translateX(-1);
+            }
 		}
 	}
 
-	&:-webkit-autofill {
-		-webkit-box-shadow: 0 0 0px 1000px $main-color inset;
+	&:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus,
+    &:-webkit-autofill:active {
+		transition-delay: 99999999s;
+        -webkit-transition-delay: 99999999s;
 		-webkit-text-fill-color: black !important;
 	}
 }
