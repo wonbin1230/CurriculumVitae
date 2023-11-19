@@ -237,7 +237,7 @@ const Youtube = () => {
 									}
 								}
 							}}
-                            onCanPlay={handleOnReady}
+                            onLoadedMetadata={handleOnReady}
                             controls
                             autoPlay
                             playsInline>
