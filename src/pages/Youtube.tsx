@@ -1,5 +1,5 @@
 import type { Dispatch, SetStateAction, RefObject, MutableRefObject } from "react";
-import type { ITargetElement, IItagInfo, ISendResult, IWsPreviewVideo, IWsDownload } from "../model/youtubeModel";
+import type { IYTList, IYTItem, ITargetElement, IItagInfo, ISendResult, IWsPreviewVideo, IWsDownload } from "../model/youtubeModel";
 
 import React, { useState, useRef, useEffect } from "react";
 import Loading from "../components/Loading";
@@ -8,14 +8,19 @@ import "nouislider/dist/nouislider.css";
 import { socket } from "../services/socketService";
 
 const Youtube = () => {
+    const [inputKeyWord, setInputKeyWord]: [string, Dispatch<string>] = useState<string>("");
 	const [inputUrl, setInputUrl]: [string, Dispatch<string>] = useState<string>("");
+    const [ytItems, setYtItems]: [IYTItem[], Dispatch<IYTItem[]>] = useState<IYTItem[]>([]);
+    const [currentYtItems, setCurrentYtItems]: [IYTItem[], Dispatch<IYTItem[]>] = useState<IYTItem[]>([]);
+    const [currentPage, setCurrentPage]: [number, Dispatch<SetStateAction<number>>] = useState<number>(1);
 	const [loadingText, setLoadingText]: [string, Dispatch<string>] = useState<string>("");
 	const [isLoading, setIsLoading]: [boolean, Dispatch<boolean>] = useState<boolean>(false);
 	const [videoPath, setVideoPath]: [string, Dispatch<string>] = useState<string>("");
 	const [videoItagList, setVideoItagList]: [IItagInfo[], Dispatch<IItagInfo[]>] = useState<IItagInfo[]>([]);
 	const [audioItagList, setAudioItagList]: [IItagInfo[], Dispatch<IItagInfo[]>] = useState<IItagInfo[]>([]);
+	const [isSearchList, setIsSearchList]: [boolean, Dispatch<boolean>] = useState<boolean>(false);
 	const [isPreview, setIsPreview]: [boolean, Dispatch<boolean>] = useState<boolean>(false);
-    const [sliderMax, setSliderMax]: [number, Dispatch<number>] = useState<number>(1);
+	const [sliderMax, setSliderMax]: [number, Dispatch<number>] = useState<number>(1);
 	const [pauseTime, setPauseTime]: [number, Dispatch<number>] = useState<number>(0);
 	const [mediaActiveIndex, setMediaActiveIndex]: [number, Dispatch<number>] = useState<number>(0);
 	const [videoItagActiveIndex, setVideoItagActiveIndex]: [number, Dispatch<number>] = useState<number>(0);
@@ -27,34 +32,65 @@ const Youtube = () => {
 	const volumeRef: RefObject<ITargetElement> = useRef(null);
 
 	const mediaTypes: string[] = ["MP3", "MP4"];
+    let itemsPerPage: number;
+    if (window.innerWidth > 768) {
+        itemsPerPage = 8;
+    }
+    else if (window.innerWidth > 430 && window.innerWidth <= 768) {
+        itemsPerPage = 6;
+    }
+    else {
+        itemsPerPage = 2;
+    }
+    const startIndex: number = (currentPage - 1) * itemsPerPage;
+    const endIndex: number = startIndex + itemsPerPage;
 
 	const handleText = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setInputUrl(event.target.value);
+		setInputKeyWord(event.target.value);
 	};
 
-	const getYtVideo = () => {
+    const getYTList = () => {
         socket.off("status");
-        socket.off("chunk");
-        socket.off("res_genPreview");
+        socket.off("res_searchKeyWord");
 
-		setIsLoading(true);
-		socket.emit("req_genPreview", inputUrl);
-		socket.on("status", async (mesaage: string) => {
+        setIsLoading(true);
+        socket.emit("req_searchKeyWord", inputKeyWord);
+        socket.on("status", (mesaage: string) => {
 			setLoadingText(mesaage);
 		});
-        const receivedChunks: BlobPart[] = [];
-        socket.on("chunk", (chunk: BlobPart) => {
-            receivedChunks.push(chunk);
+        socket.on("res_searchKeyWord", (result: IYTList) => {
+            const onlyVideos: IYTItem[] = result.items.filter((item: IYTItem) => item.type === "video");
+            setYtItems(onlyVideos);
+            setCurrentPage(1);
+            setCurrentYtItems(onlyVideos.slice(startIndex, endIndex));
+            setIsSearchList(true);
+            setIsLoading(false);
         });
+    };
+
+	const getYtVideo = (url: string) => {
+		socket.off("status");
+		socket.off("chunk");
+		socket.off("res_genPreview");
+
+		setIsLoading(true);
+		socket.emit("req_genPreview", url);
+		socket.on("status", (mesaage: string) => {
+			setLoadingText(mesaage);
+		});
+		const receivedChunks: BlobPart[] = [];
+		socket.on("chunk", (chunk: BlobPart) => {
+			receivedChunks.push(chunk);
+		});
 		socket.on("res_genPreview", (result: IWsPreviewVideo) => {
 			if (Object.keys(result).length !== 3) {
 				setIsLoading(false);
 				alert("Can not find viedo from youtube");
 				return false;
 			}
-            const url: string = URL.createObjectURL(new Blob(receivedChunks, { type: "video/mp4", }));
+			const url: string = URL.createObjectURL(new Blob(receivedChunks, { type: "video/mp4" }));
 			setVideoPath(url);
-            setSliderMax(Number(result.lengthSeconds));
+			setSliderMax(Number(result.lengthSeconds));
 			setSendResult({
 				range: {
 					start: 0,
@@ -101,32 +137,32 @@ const Youtube = () => {
 		}));
 	};
 
-    const handleOnReady = () => {
-        const mobileDevice: string[] = ["Android", "webOS", "iPhone", "iPad", "iPod", "BlackBerry", "Windows Phone"];
-        const isMobileDevice: boolean = mobileDevice.some((userAgent: string) => navigator.userAgent.match(userAgent));
-        if (!isMobileDevice) {
-            videoRef.current.pause();
-        }
-        if (isMobileDevice) {
-            volumeRef.current.style.display = "none";
-        }
-    };
+	const handleOnReady = () => {
+		const mobileDevice: string[] = ["Android", "webOS", "iPhone", "iPad", "iPod", "BlackBerry", "Windows Phone"];
+		const isMobileDevice: boolean = mobileDevice.some((userAgent: string) => navigator.userAgent.match(userAgent));
+		if (!isMobileDevice) {
+			videoRef.current.pause();
+		}
+		if (isMobileDevice) {
+			volumeRef.current.style.display = "none";
+		}
+	};
 
 	const download = () => {
-        socket.off("status");
-        socket.off("chunk");
-        socket.off("res_download");
+		socket.off("status");
+		socket.off("chunk");
+		socket.off("res_download");
 
 		videoRef.current.pause();
 		setIsLoading(true);
-        socket.emit("req_download", { ...sendResult, url: inputUrl });
+		socket.emit("req_download", { ...sendResult, url: inputUrl });
 		socket.on("status", (mesaage: string) => {
 			setLoadingText(mesaage);
 		});
-        const receivedChunks: BlobPart[] = [];
-        socket.on("chunk", (chunk: BlobPart) => {
-            receivedChunks.push(chunk);
-        });
+		const receivedChunks: BlobPart[] = [];
+		socket.on("chunk", (chunk: BlobPart) => {
+			receivedChunks.push(chunk);
+		});
 		socket.on("res_download", (result: IWsDownload) => {
 			const url: string = window.URL.createObjectURL(
 				new Blob(receivedChunks, {
@@ -149,6 +185,11 @@ const Youtube = () => {
 		videoRef.current.pause();
 		videoRef.current.currentTime = 0;
 	};
+
+    useEffect(() => {
+        setCurrentYtItems(ytItems.slice(startIndex, endIndex));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currentPage]);
 
 	useEffect(() => {
 		if (sliderRef.current) {
@@ -209,22 +250,63 @@ const Youtube = () => {
 			{isLoading && <Loading width={400} height={400} text={loadingText} />}
 			<div className="side-project-container">
 				<h1>Youtube Downloader</h1>
-				{!isPreview ? (
-					<div className="yt-url">
+				{!isSearchList && !isPreview && (
+					<div className="yt-search">
 						<div className="centered">
 							<div className="group">
-								<input type="text" id="url" value={inputUrl} onChange={handleText} required />
-								<label htmlFor="url">Youtube URL</label>
+								<input type="text" id="search" value={inputKeyWord} onChange={handleText} required />
+								<label htmlFor="search">
+									請輸入關鍵字<i className="fa-solid fa-magnifying-glass"></i>
+								</label>
 								<div className="bar"></div>
 							</div>
-							{inputUrl && (
+							{inputKeyWord && (
 								<div className="center">
-									<button onClick={getYtVideo}>Start</button>
+									<button onClick={getYTList}>Search</button>
 								</div>
 							)}
 						</div>
 					</div>
-				) : (
+				)}
+				{isSearchList && !isPreview && (
+                    <div className="yt-search-result">
+                        <div className="yt-action">
+                            <div className="yt-search">
+                                <div className="group">
+                                    <input type="text" id="search" value={inputKeyWord} onChange={handleText} required />
+                                    <div className="bar"></div>
+                                </div>
+                                {inputKeyWord && (
+                                    <button onClick={getYTList}>Search</button>
+                                )}
+                            </div>
+                            <div className="center">
+                                <div>
+                                    <button onClick={() => setCurrentPage((prev: number) => Math.max(prev - 1, 1))}>上一頁</button>
+                                    <button onClick={() => setCurrentPage((prev: number) => Math.min(prev + 1, Math.ceil(ytItems.length / itemsPerPage)))}>下一頁</button>
+                                </div>
+                                <span>第 {currentPage} 頁 / 共 {Math.ceil(ytItems.length / itemsPerPage)} 頁</span>
+                            </div>
+                        </div>
+                        <div className="yt-list">
+                            {currentYtItems.map((item: IYTItem, index: number) => {
+                                return (
+                                    <div key={index}
+                                        className="yt-item"
+                                        onClick={() => {
+                                            setInputUrl(item.url);
+                                            getYtVideo(item.url);
+                                        }}
+                                    >
+                                        <img src={item.bestThumbnail.url} alt={item.title} title={item.title} />
+                                        <div className="yt-title" title={item.title}>{item.title}</div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+				)}
+				{isSearchList && isPreview && (
 					<div className="yt-preview">
 						<video
 							ref={videoRef}
@@ -237,11 +319,11 @@ const Youtube = () => {
 									}
 								}
 							}}
-                            onLoadedMetadata={handleOnReady}
-                            controls
-                            autoPlay
-                            playsInline>
-                            <source type="video/mp4" src={videoPath} />
+							onLoadedMetadata={handleOnReady}
+							controls
+							autoPlay
+							playsInline>
+							<source type="video/mp4" src={videoPath} />
 							<p>你的瀏覽器不支援 HTML 5 video tag</p>
 						</video>
 						<div className="volume" ref={volumeRef}></div>
@@ -302,7 +384,7 @@ const Youtube = () => {
 							<button
 								className="action-btn"
 								onClick={() => {
-									location.reload();
+									setIsPreview(false);
 								}}>
 								重新選擇影片
 							</button>

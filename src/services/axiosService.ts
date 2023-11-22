@@ -1,13 +1,7 @@
-import type { AxiosInstance } from "axios";
-import type { IApiSendResult } from "../model/youtubeModel";
-
 import axios from "axios";
 
-const baseURL: string = process.env.REACT_APP_YOUTUBE_URL || "http://localhost:5000/crawler/youtube/";
-const youtubeRequest: AxiosInstance = axios.create({ baseURL });
+const baseURL: string = `https://www.googleapis.com/youtube/v3/search?key=${encodeURIComponent(process.env.REACT_APP_YT_API_TOKEN)}`;
 
-export const apiGenPreviewVideo = (data: { url: string }) => youtubeRequest.post("/preview", data);
+export const apiGetYTList = (keyWord: string) => axios.get(`${baseURL}&q=${encodeURIComponent(keyWord)}&part=snippet&type=video&maxResults=12`);
 
 export const apiGetPreviewVideo = (data: string) => `${baseURL}/preview/${data}`;
-
-export const apiDownload = (data: IApiSendResult) => youtubeRequest.post("/download", data, { responseType: "blob" });

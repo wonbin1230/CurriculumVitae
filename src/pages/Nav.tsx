@@ -1,6 +1,6 @@
 import type { RefObject } from "react";
 
-import React, { useRef, useEffect } from "react";
+import React, { useRef } from "react";
 import { Outlet, Link } from "react-router-dom";
 
 const Nav = () => {
@@ -17,7 +17,7 @@ const Nav = () => {
 		<>
 			<nav>
 				<div className="logo">
-					Yu<b>.</b>
+					<Link to="/">Yu<b>.</b></Link>
 				</div>
 				<ul className="navItems">
 					<li>
@@ -33,7 +33,7 @@ const Nav = () => {
 						<a href="#">SideProjects</a>
 						<ul>
 							<li>
-								<a href="/ytdl">YouTube Downloader</a>
+                                <Link to="/ytdl">YouTube Downloader</Link>
 							</li>
 						</ul>
 					</li>

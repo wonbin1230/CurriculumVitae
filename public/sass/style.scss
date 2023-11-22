@@ -13,7 +13,10 @@
 
 body {
 	overflow-x: hidden;
-    overflow-y: auto;
+    overflow-y: hidden;
+    @include mobile {
+        overflow-y: auto;
+    }
 }
 
 .container {
@@ -42,6 +45,11 @@ nav {
 		text-transform: uppercase;
         @include pad {
             font-size: 2rem;
+        }
+
+        a {
+            color: #3d535f;
+            text-decoration: none;
         }
 	}
 
@@ -422,7 +430,138 @@ nav {
         z-index: 888;
 	}
 
-	.yt-url {
+    .yt-search-result {
+        .yt-action {
+            display: flex;
+            justify-content: space-between;
+            @include mobile {
+                flex-direction: column;
+            }
+
+            .yt-search {
+                display: flex;
+                align-items: baseline;
+                max-width: 50%;
+                @include mobile {
+                    max-width: 100%;
+                }
+
+                button {
+                    margin-left: 5%;
+                    font-size: 20px;
+                    margin-bottom: 2%;
+
+                    @include pad {
+                        margin-left: 0;
+                        padding: 10px;
+                    }
+
+                    @include mobile {
+                        padding: 5px;
+                    }
+                }
+
+                .group {
+                    height: auto;
+
+                    input {
+                        padding-top: 0;
+                    }
+                }
+            }
+
+            .center {
+                max-width: 50%;
+                justify-content: flex-end;
+                flex-direction: column;
+                margin-top: 0;
+                margin-bottom: 2%;
+                @include mobile {
+                    max-width: 100%;
+                }
+
+                span {
+                    width: 150px;
+                }
+
+                button {
+                    outline: none;
+                    border: none;
+                    cursor: pointer;
+                    font-size: 25px;
+                    font-weight: 400;
+                    color: #fff;
+                    background-color: #3d535f;
+                    padding: 8px 14px;
+                    margin: 0 5px;
+                    letter-spacing: 2px;
+                    text-transform: capitalize;
+                    box-shadow: 0 15px 10px rgba(0, 0, 0, 0.4);
+                    @include pad {
+                        font-size: 20px;
+                        padding: 8px 5px;
+                        margin: 2% 5px;
+                    }
+                    @include mobile {
+                        margin: 5% 5px;
+                    }
+
+                    &:hover {
+                        background-color: #7f00ff;
+                    }
+                }
+            }
+        }
+
+        .yt-list {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            position: relative;
+            z-index: 888;
+            @include mobile {
+                margin-bottom: 5%;
+            }
+
+            .yt-item {
+                max-width: 320px;
+                font-weight: bold;
+                margin-top: 2%;
+                @include desktop {
+                    transition: all 0.5s ease-out;
+
+                    &:hover {
+                        box-shadow: 0 15px 10px rgba(0, 0, 0, 0.4);
+                        transform: scale(1.2);
+                    }
+                }
+
+                @include pad {
+                    max-width: 280px;
+                }
+
+                @include mobile {
+                    max-width: 100%;
+                }
+
+                img {
+                    max-width: 100%;
+                    border-radius: 5%;
+                }
+
+                .yt-title {
+                    max-width: 100%;
+                    display: -webkit-box;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
+                    -webkit-line-clamp: 2;
+                }
+            }
+        }
+    }
+
+	.yt-search {
 		button {
 			display: block;
 			outline: 0;
