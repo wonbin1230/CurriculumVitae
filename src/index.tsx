@@ -1,22 +1,11 @@
+import type { Root } from "react-dom/client";
+
 import React from "react";
 import ReactDOM from "react-dom/client";
-import type { Root } from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import App from "./App";
 import "./index.css";
-import Nav from "./pages/Nav";
-import Home from "./pages/Home";
-import Youtube from "./pages/Youtube";
 
-const root: Root = ReactDOM.createRoot(
-    document.getElementById("root")
-);
+const root: Root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-    <BrowserRouter>
-        <Routes>
-            <Route path="/" element={<Nav />}>
-                <Route index element={<Home />} />
-                <Route path="/ytdl" element={<Youtube />} />
-            </Route>
-        </Routes>
-    </BrowserRouter>
+    <App />
 );
