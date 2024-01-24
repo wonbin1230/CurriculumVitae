@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
         "target": "ES2022",
-        "module": "CommonJS",
+        "module": "es2022",
         "allowSyntheticDefaultImports": true,
         "moduleResolution": "node",
         "skipLibCheck": true,
@@ -21,7 +21,8 @@
     },
     "include": [
         "src/**/*",
-        "libs/**/*"
+        "libs/**/*",
+        "vite.config.ts"
     ],
     "exclude": [
         "node_modules"

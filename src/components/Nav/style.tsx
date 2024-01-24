@@ -1,13 +1,6 @@
-import type { FC, ReactNode, RefObject} from "react";
-
 import styled from "styled-components";
 
-interface IReactNode {
-    children: ReactNode,
-    ref?: RefObject<HTMLDivElement>,
-}
-
-export const NavBar: FC<IReactNode> = styled.nav`
+export const NavBar = styled.nav`
     display: flex;
     position: relative;
 	width: 100%;
@@ -17,7 +10,7 @@ export const NavBar: FC<IReactNode> = styled.nav`
     background-color: var(--background-color);
 `;
 
-export const Logo: FC<IReactNode> = styled.div`
+export const Logo = styled.div`
     display: flex;
 	font-size: 2.5rem;
 	font-weight: 800;
@@ -43,7 +36,7 @@ export const Logo: FC<IReactNode> = styled.div`
 	}
 `;
 
-export const ItemList: FC<IReactNode> = styled.ul`
+export const ItemList = styled.ul`
     display: flex;
     @media(max-width: 768px) {
         width: 30rem;
@@ -107,7 +100,7 @@ export const ItemList: FC<IReactNode> = styled.ul`
 	}
 `;
 
-export const Community: FC<IReactNode> = styled.div`
+export const Community = styled.div`
     white-space: nowrap;
 
     > a {
@@ -125,7 +118,7 @@ export const Community: FC<IReactNode> = styled.div`
     }
 `;
 
-export const MenuIconMobile: FC<IReactNode> = styled.div`
+export const MenuIconMobile = styled.div`
     display: none;
     > a {
         color: var(--main-font-color);
@@ -136,7 +129,7 @@ export const MenuIconMobile: FC<IReactNode> = styled.div`
     }
 `;
 
-export const ItemListMobile: FC<IReactNode> = styled.div`
+export const ItemListMobile = styled.div`
     @keyframes navItemsMobile {
         0% {
             top: -10%;
@@ -198,7 +191,7 @@ export const ItemListMobile: FC<IReactNode> = styled.div`
     }
 `;
 
-export const ThemeSwitcer: FC<IReactNode> = styled.div`
+export const ThemeSwitcer = styled.div`
     font-size: 1.875rem;
     cursor: pointer;
     > i {

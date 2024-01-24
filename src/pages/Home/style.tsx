@@ -1,12 +1,7 @@
-import type { FC, ReactNode,} from "react";
-
 import styled from "styled-components";
+import { motion } from "framer-motion";
 
-interface IReactNode {
-    children: ReactNode,
-}
-
-export const Wrapper: FC<IReactNode> = styled.div`
+export const Wrapper = styled(motion.div)`
     display: flex;
 	width: 100%;
 	height: calc(100vh - 5rem);
@@ -147,7 +142,7 @@ export const Wrapper: FC<IReactNode> = styled.div`
 
 		h1 {
 			display: block;
-			font-size: 7vw;
+			font-size: 6vw;
 			font-weight: 900;
 			color: var(--main-font-color);
 

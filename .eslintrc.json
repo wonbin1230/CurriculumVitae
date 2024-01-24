@@ -9,6 +9,7 @@
         "plugin:react/recommended",
         "plugin:react-hooks/recommended"
     ],
+    "ignorePatterns": ["vite.config.ts"],
     "overrides": [
         {
             "files": [
@@ -44,7 +45,7 @@
                 "@typescript-eslint/consistent-type-exports": "error",
                 "@typescript-eslint/consistent-type-imports": "error",
                 "@typescript-eslint/typedef": [
-                    "error",
+                    "off",
                     {
                         "arrayDestructuring": true,
                         "arrowParameter": true,
@@ -78,7 +79,15 @@
                             "delimiter": "comma",
                             "requireLast": false
                         },
-                        "multilineDetection": "brackets"
+                        "multilineDetection": "brackets",
+                        "overrides": {
+                            "interface": {
+                                "multiline": {
+                                    "delimiter": "semi",
+                                    "requireLast": true
+                                }
+                            }
+                        }
                     }
                 ],
                 "@typescript-eslint/naming-convention": [
@@ -189,7 +198,7 @@
                 "@typescript-eslint/consistent-type-exports": "error",
                 "@typescript-eslint/consistent-type-imports": "error",
                 "@typescript-eslint/typedef": [
-                    "error",
+                    "off",
                     {
                         "arrayDestructuring": true,
                         "arrowParameter": true,
@@ -223,7 +232,15 @@
                             "delimiter": "comma",
                             "requireLast": false
                         },
-                        "multilineDetection": "brackets"
+                        "multilineDetection": "brackets",
+                        "overrides": {
+                            "interface": {
+                                "multiline": {
+                                    "delimiter": "semi",
+                                    "requireLast": true
+                                }
+                            }
+                        }
                     }
                 ],
                 "@typescript-eslint/naming-convention": [
